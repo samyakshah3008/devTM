@@ -1,24 +1,10 @@
 import dotenv from "dotenv";
-import mongoose from "mongoose";
-import app from "./app.js";
+import app from "../app.js";
+import connectDB from "./db/index.js";
 
 dotenv.config({
   path: ".env",
 });
-
-const connectDB = async () => {
-  try {
-    const connectionInstance = await mongoose.connect(
-      `${process.env.MONGODB_URI}/${"DEVTM_DB"}`
-    );
-    console.log(
-      `\n MongoDB connected: !! DB Host ${connectionInstance.connection.host} `
-    );
-  } catch (error) {
-    console.error("MONGODB Connection failed", error);
-    process.exit(1);
-  }
-};
 
 connectDB()
   .then(() => {
@@ -29,5 +15,3 @@ connectDB()
   .catch((error) => {
     console.error("Something went wrong to the root of the service", error);
   });
-
-// export default connectDB;
